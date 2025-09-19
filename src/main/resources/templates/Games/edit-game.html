@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Complexivo</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" >Game</a>
+        <a class="navbar-brand ms-auto" href="/logout" >Cerrar sesion</a>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Editar Juego</h1>
+    <form th:action="@{'/Games/edit/' + ${Games.id}}" th:object="${Games}" method="post">
+    <div class="mb-5">
+            <label for="GameName" class="form-lable">Producto</label>
+            <input th:field="*{GameName}"  type="text" class="form-control" id="GameName" name="GameName" required>
+        </div>
+        <div class="mb-5">
+            <label for="price" class="form-lable">Precio</label>
+            <input th:field="*{price}"  type="number" class="form-control" id="price" name="price" step="0.01" required>
+        </div>
+        <div class="mb-5">
+            <label for="stock" class="form-lable">Stock</label>
+            <input th:field="*{stock}"  type="number" class="form-control" id="stock" name="stock" required>
+        </div>
+        <div class="mb-5">
+            <label for="description" class="form-lable">Descripcion</label>
+            <textarea th:field="*{description}"  type="text" class="form-control" id="description" name="description" required rows="3"></textarea>
+        </div>
+        <div class="mb-5">
+            <label for="gameCategory" class="form-lable">Seleccionar</label>
+            <select  th:field="*{gameCategory}" class="form-control" id="gameCategory" name="gameCategory.id">
+                <option value="" selected   >Seleccionar categoria</option>
+                <th:block th:each="categoryGame:${GameCategories}">
+                    <option th:value="${categoryGame.id} " th:text="${categoryGame.name}" >  </option>
+                </th:block>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success"> Guardar producto</button>
+    </form>
+
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</html>

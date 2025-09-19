@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Complexivo</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" >RELSB</a>
+        <a class="navbar-brand ms-auto" href="/logout" >Cerrar sesion</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4 text-primary"> Productos</h1>
+    </div>
+    <div class="mb-3">
+        <a class="btn btn-success" th:href="@{/add-game}">Agregar Videojuego</a>
+    </div>
+    <table class="table table-striped table-bordered tale-hover">
+        <thead class="table-dark">
+        <tr >
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Categoria</th>
+            <th>Stock</th>
+            <th>Descripcion</th>
+            <th class="text-center">Opciones</th>
+        </tr>
+        </thead>
+        <tbody >
+        <tr th:each="Games:${Games}" >
+            <td th:text="${Games.id}"></td>
+            <td th:text="${Games.GameName}"></td>
+            <td th:text="${Games.price}"></td>
+            <td th:text="${Games.gameCategory.name}"></td>
+            <td th:text="${Games.stock}"></td>
+            <td th:text="${Games.description}"></td>
+            <td class="text-center">
+                <a th:href="@{/Games/edit/{id}(id=${Games.id})}" class="btn btn-warning btn-sm">Editar</a>
+
+                <button class="btn btn-danger btn-sm"> Eliminar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</html>
