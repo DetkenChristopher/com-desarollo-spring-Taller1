@@ -4,12 +4,16 @@ import com.desarollo.spring.Talelr1.com_desarollo_spring_Taller1.models.Games;
 import com.desarollo.spring.Talelr1.com_desarollo_spring_Taller1.service.CategoryGameService;
 import com.desarollo.spring.Talelr1.com_desarollo_spring_Taller1.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.stream.Collectors;
 
 @Controller
 public class GameController {
@@ -21,7 +25,14 @@ public class GameController {
     CategoryGameService categoryGameService;
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(Model model, Authentication authentication){
+        //rol de usuario
+
+        String role=authentication.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.joining(","));
+
+        model.addAttribute("role", role);
         model.addAttribute("Games", gameService.getAllGames());
         return "Games/home";
     }
@@ -53,4 +64,12 @@ public class GameController {
         gameService.saveGame(games);
         return "redirect:/";
     }
+
+    @PostMapping("/Games/delete/{id}")
+    public String deleteGame(@PathVariable Long id){
+        gameService.deleteGame(id);
+        return "redirect:/";
+    }
+
+
 }

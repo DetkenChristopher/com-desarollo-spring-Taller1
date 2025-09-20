@@ -26,4 +26,8 @@ public class GameService {
     public Optional<Games> getGameById(Long id){
         return gameRepository.findById(id);
     }
+
+    public void deleteGame(Long id){
+        gameRepository.deleteById(id);
+    }
 }
